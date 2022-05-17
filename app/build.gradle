@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.myapplication"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
@@ -29,12 +29,18 @@ android {
     }
 
     packagingOptions {
-        resources.excludes.add("/*.css")
-        resources.excludes.add("/*.js")
-        resources.excludes.add("/*.html")
-        pickFirst 'org/bouncycastle/x509/CertPathReviewerMessages_de.properties'
-        pickFirst 'org/bouncycastle/x509/CertPathReviewerMessages.properties'
+        resources.excludes.add("**.css")
+        resources.excludes.add("**.js")
+        resources.excludes.add("**.html")
         resources.excludes.add('package-list')
+        pickFirst "org/bouncycastle/x509/CertPathReviewerMessages_de.properties"
+        pickFirst "org/bouncycastle/x509/CertPathReviewerMessages.properties"
+        resources.excludes.add("**.svg")
+        resources.excludes.add("**.png")
+        resources.excludes.add("**.ttf")
+        resources.excludes.add("**.woff")
+        resources.excludes.add("**.eot")
+        resources.excludes.add("**.gif")
     }
 }
 
@@ -48,5 +54,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation "androidx.multidex:multidex:2.0.1"
 
-    implementation 'org.bitcoin-s:bitcoin-s-crypto_2.13:1.9.1'
+    implementation 'org.bitcoin-s:bitcoin-s-core_2.13:1.9.1'
 }

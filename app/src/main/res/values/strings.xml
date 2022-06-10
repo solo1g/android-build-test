@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Bitcoin-S Node</string>
+    <string name="button">Start Node</string>
+</resources>

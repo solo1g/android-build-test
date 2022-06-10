@@ -1,0 +1,168 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 31
+
+    defaultConfig {
+        applicationId "com.example.myapplication"
+        minSdkVersion 26
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    configurations {
+        all {
+            exclude group: 'io.monix', module: 'monix-internal-jctools_2.13'
+        }
+    }
+    packagingOptions {
+        resources.excludes.add("**.css")
+        resources.excludes.add("**.js")
+        resources.excludes.add("**.html")
+        resources.excludes.add('package-list')
+        pickFirst "org/bouncycastle/x509/CertPathReviewerMessages_de.properties"
+        pickFirst "org/bouncycastle/x509/CertPathReviewerMessages.properties"
+        resources.excludes.add("**.svg")
+        resources.excludes.add("**.png")
+        resources.excludes.add("**.ttf")
+        resources.excludes.add("**.woff")
+        resources.excludes.add("**.eot")
+        resources.excludes.add("**.gif")
+        pickFirst "reference.conf"
+        pickFirst "**.sql"
+        pickFirst "**.proto"
+        pickFirst "**.txz"
+        pickFirst "**.properties"
+        pickFirst "**.zip"
+        pickFirst "element-list"
+        pickFirst "**.txt"
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'com.android.support:multidex:1.0.3'
+
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //akka actor deps
+    implementation 'org.scala-lang:scala-library:2.13.8'
+    implementation 'com.typesafe:config:1.4.2'
+    implementation 'org.scala-lang.modules:scala-java8-compat_2.13:1.0.2' //had 1.0.0 in dep
+
+    //akka testkit deps
+    implementation 'junit:junit:4.13.2'
+    implementation 'org.scalatest:scalatest_2.13:3.1.4'
+    implementation 'io.dropwizard.metrics:metrics-core:4.2.7'
+    implementation 'io.dropwizard.metrics:metrics-jvm:4.2.7'
+    implementation 'org.latencyutils:LatencyUtils:2.0.3'
+    implementation 'org.hdrhistogram:HdrHistogram:2.1.12'
+
+    implementation('org.bitcoin-s:bitcoin-s-testkit_2.13:1.9.1'){
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-clightning-rpc_2.13'
+        exclude group: 'com.typesafe.akka', module: 'akka-testkit_2.13'
+        exclude group: 'com.typesafe.akka', module: 'akka-actor_2.13'
+        exclude group: 'org.xerial', module: 'sqlite-jdbc'
+        exclude group: 'com.typesafe.slick', module: 'slick_2.13'
+        exclude group: 'org.flywaydb', module: 'flyway-core'
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-node_2.13'
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-server_2.13'
+    }
+
+    implementation('org.bitcoin-s:bitcoin-s-dlc-wallet_2.13:1.9.1'){
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-clightning-rpc_2.13'
+        exclude group: 'com.typesafe.akka', module: 'akka-testkit_2.13'
+        exclude group: 'com.typesafe.akka', module: 'akka-actor_2.13'
+        exclude group: 'org.xerial', module: 'sqlite-jdbc'
+        exclude group: 'com.typesafe.slick', module: 'slick_2.13'
+        exclude group: 'org.flywaydb', module: 'flyway-core'
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-node_2.13'
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-server_2.13'
+    }
+    implementation('org.bitcoin-s:bitcoin-s-dlc-node_2.13:1.9.1'){
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-clightning-rpc_2.13'
+        exclude group: 'com.typesafe.akka', module: 'akka-testkit_2.13'
+        exclude group: 'com.typesafe.akka', module: 'akka-actor_2.13'
+        exclude group: 'org.xerial', module: 'sqlite-jdbc'
+        exclude group: 'com.typesafe.slick', module: 'slick_2.13'
+        exclude group: 'org.flywaydb', module: 'flyway-core'
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-node_2.13'
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-server_2.13'
+    }
+    implementation('org.bitcoin-s:bitcoin-s-fee-provider_2.13:1.9.1'){
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-clightning-rpc_2.13'
+        exclude group: 'com.typesafe.akka', module: 'akka-testkit_2.13'
+        exclude group: 'com.typesafe.akka', module: 'akka-actor_2.13'
+        exclude group: 'org.xerial', module: 'sqlite-jdbc'
+        exclude group: 'com.typesafe.slick', module: 'slick_2.13'
+        exclude group: 'org.flywaydb', module: 'flyway-core'
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-node_2.13'
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-server_2.13'
+    }
+    implementation('org.bitcoin-s:bitcoin-s-server-routes_2.13:1.9.1'){
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-clightning-rpc_2.13'
+        exclude group: 'com.typesafe.akka', module: 'akka-testkit_2.13'
+        exclude group: 'com.typesafe.akka', module: 'akka-actor_2.13'
+        exclude group: 'org.xerial', module: 'sqlite-jdbc'
+        exclude group: 'com.typesafe.slick', module: 'slick_2.13'
+        exclude group: 'org.flywaydb', module: 'flyway-core'
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-node_2.13'
+        exclude group:'org.bitcoin-s', module:'bitcoin-s-server_2.13'
+    }
+
+//    implementation('org.bitcoin-s:bitcoin-s-db-commons-test_2.13:1.9.1'){
+//        exclude group:'org.bitcoin-s', module:'bitcoin-s-clightning-rpc_2.13'
+//        exclude group: 'com.typesafe.akka', module: 'akka-testkit_2.13'
+//        exclude group: 'com.typesafe.akka', module: 'akka-actor_2.13'
+//        exclude group: 'org.xerial', module: 'sqlite-jdbc'
+//        exclude group: 'com.typesafe.slick', module: 'slick_2.13'
+//        exclude group: 'org.flywaydb', module: 'flyway-core'
+//        exclude group:'org.bitcoin-s', module:'bitcoin-s-node_2.13'
+//    }
+//
+//    implementation('org.bitcoin-s:bitcoin-s-wallet-test_2.13:1.9.1'){
+//        exclude group:'org.bitcoin-s', module:'bitcoin-s-clightning-rpc_2.13'
+//        exclude group: 'com.typesafe.akka', module: 'akka-testkit_2.13'
+//        exclude group: 'com.typesafe.akka', module: 'akka-actor_2.13'
+//        exclude group: 'org.xerial', module: 'sqlite-jdbc'
+//        exclude group: 'com.typesafe.slick', module: 'slick_2.13'
+//        exclude group: 'org.flywaydb', module: 'flyway-core'
+//        exclude group:'org.bitcoin-s', module:'bitcoin-s-node_2.13'
+//    }
+//
+//    implementation('org.bitcoin-s:bitcoin-s-node_2.13:1.9.1'){
+//        exclude group:'org.bitcoin-s', module:'bitcoin-s-clightning-rpc_2.13'
+//        exclude group: 'com.typesafe.akka', module: 'akka-testkit_2.13'
+//        exclude group: 'com.typesafe.akka', module: 'akka-actor_2.13'
+//        exclude group: 'org.xerial', module: 'sqlite-jdbc'
+//        exclude group: 'com.typesafe.slick', module: 'slick_2.13'
+//        exclude group: 'org.flywaydb', module: 'flyway-core'
+//        exclude group:'org.bitcoin-s', module:'bitcoin-s-node_2.13'
+//    }
+
+    implementation("com.musala.atmosphere:openbeans-jxpath:0.0.1")
+}
